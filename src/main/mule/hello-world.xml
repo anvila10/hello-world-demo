@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4432781e-aa79-465b-9236-df1cf0970ae1" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="hello-worldFlow" doc:id="7489a7be-aca6-47d2-9e7d-0316b4a39bc1" >
+		<http:listener doc:name="Listener" doc:id="3a3bb94d-22b5-484a-8234-0af94d48c63d" config-ref="HTTP_Listener_config" path="/hello"/>
+		<logger level="INFO" doc:name="Start-Flow" doc:id="e3faaf68-9508-4092-bd76-0bdeec64c5f7" message="Start-Flow"/>
+		<set-variable value="#[attributes.queryParams.name]" doc:name="Set name var" doc:id="a0f3e567-152d-49da-81cd-6fc5405de956" variableName="name"/>
+		<set-payload value='#["welcome " ++ vars.name as String default "" ++ " to Mulesoft"]' doc:name="Set greeting message" doc:id="ff53ea65-2396-42df-b1d2-0abab72b3707" />
+		<logger level="INFO" doc:name="End-Flow" doc:id="896a19d3-f0a5-4551-ac30-5be0b4fb9ded" message="End-Flow"/>
+	</flow>
+</mule>
